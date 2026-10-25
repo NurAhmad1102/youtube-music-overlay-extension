@@ -67,7 +67,7 @@ A Google Chrome Extension (Manifest V3) that provides an **Always-on-Top Floatin
 
 1. **Clone or Download This Repository**:
    ```bash
-   git clone https://github.com/USERNAME/youtube-music-overlay-extension.git
+   git clone https://github.com/NurAhmad1102/youtube-music-overlay-extension.git
    ```
    *(Or download the ZIP file from GitHub and extract it to a folder on your computer)*.
 
