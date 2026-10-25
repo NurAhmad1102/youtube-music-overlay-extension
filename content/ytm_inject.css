@@ -1,0 +1,66 @@
+/* Styling for Injected Buttons on YouTube Music */
+
+/* Floating Launcher Pill */
+.ytm-overlay-pill-btn {
+  position: fixed;
+  bottom: 85px;
+  right: 25px;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, rgba(255, 30, 60, 0.95), rgba(180, 0, 40, 0.95));
+  color: #ffffff;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 0, 50, 0.4), 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(8px);
+  user-select: none;
+}
+
+.ytm-overlay-pill-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 25px rgba(255, 0, 50, 0.6), 0 4px 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(255, 50, 80, 1), rgba(210, 10, 50, 1));
+}
+
+.ytm-overlay-pill-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.ytm-overlay-pill-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.ytm-overlay-pill-btn .ytm-pip-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Pulsing highlight effect when requested from popup or shortcut */
+.ytm-launcher-highlight {
+  animation: ytm-pulse-glow 1s infinite alternate !important;
+}
+
+@keyframes ytm-pulse-glow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
+  }
+  100% {
+    transform: scale(1.12);
+    box-shadow: 0 0 35px rgba(255, 0, 60, 1), 0 0 15px rgba(255, 255, 255, 0.8);
+  }
+}

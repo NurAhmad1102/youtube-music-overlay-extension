@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "YT Music Gaming Overlay & Mini Player",
+  "version": "1.0.0",
+  "description": "Always-on-Top Floating Mini Player & Music Search for YouTube Music with Global Hotkeys for Gaming",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "YT Music Overlay Controller",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://music.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://music.youtube.com/*"],
+      "js": ["content/ytm_bridge.js"],
+      "css": ["content/ytm_inject.css"],
+      "world": "MAIN",
+      "run_at": "document_end"
+    }
+  ],
+  "commands": {
+    "play-pause": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Global Play/Pause YouTube Music",
+      "global": true
+    },
+    "next-track": {
+      "suggested_key": {
+        "default": "Alt+Shift+Right"
+      },
+      "description": "Global Next Track",
+      "global": true
+    },
+    "prev-track": {
+      "suggested_key": {
+        "default": "Alt+Shift+Left"
+      },
+      "description": "Global Previous Track",
+      "global": true
+    },
+    "toggle-pip": {
+      "suggested_key": {
+        "default": "Alt+Shift+O"
+      },
+      "description": "Toggle / Highlight Overlay",
+      "global": true
+    }
+  }
+}

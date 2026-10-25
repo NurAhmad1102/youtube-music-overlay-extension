@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YT Music Overlay</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="bg-zinc-950 text-white">
+  <div class="popup-wrapper">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-brand">
+        <svg class="text-red-600 icon-yt" viewBox="0 0 576 512">
+          <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.837V174.08l142.48 81.92-142.48 81.92z"/>
+        </svg>
+        <span class="header-title">YT Music Extension</span>
+      </div>
+      <div id="pip-status-badge" class="badge-status idle">
+        <span class="badge-dot"></span>
+        <span id="pip-status-text">Standby</span>
+      </div>
+    </div>
+
+    <!-- State 1: No YTM Tab -->
+    <div id="view-no-ytm" class="card-empty" style="display: none;">
+      <p class="empty-desc">Tab YouTube Music belum dibuka di browser.</p>
+      <button id="btn-open-ytm" class="btn-primary">
+        Buka YouTube Music
+      </button>
+    </div>
+
+    <!-- State 2: YTM Tab Active -->
+    <div id="view-ytm-active" class="active-container" style="display: none;">
+      <!-- Track Meta Card -->
+      <div class="track-row">
+        <div class="track-thumb">
+          <img id="popup-cover" src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=200&auto=format&fit=crop" alt="Cover" />
+        </div>
+        <div class="track-info">
+          <h3 id="popup-title" class="track-title">Memuat...</h3>
+          <p id="popup-artist" class="track-artist">YouTube Music</p>
+        </div>
+      </div>
+
+      <!-- Quick Controls -->
+      <div class="controls-row">
+        <button id="btn-quick-prev" class="btn-ctrl" title="Lagu Sebelumnya">
+          <svg viewBox="0 0 512 512"><path d="M493.6 445c-11.2 5.3-24.5 3.6-34.1-4.4L288 297.7V416c0 12.4-7.2 23.7-18.4 29s-24.5 3.6-34.1-4.4L48 288.7c-9.9-8.3-16-20.7-16-32.7s6.1-24.4 16-32.7L235.5 71.4c9.6-8 22.9-9.7 34.1-4.4S288 83.6 288 96v118.3L459.5 71.4c9.6-8 22.9-9.7 34.1-4.4S512 83.6 512 96v320c0 12.4-7.2 23.7-18.4 29z"/></svg>
+        </button>
+        <button id="btn-quick-play" class="btn-play-white" title="Play / Pause">
+          <svg class="icon-play" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 320 512" style="display:none;"><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/></svg>
+        </button>
+        <button id="btn-quick-next" class="btn-ctrl" title="Lagu Berikutnya">
+          <svg viewBox="0 0 512 512"><path d="M18.4 67C29.6 61.7 42.9 63.4 52.5 71.4L224 214.3V96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4L464 223.3c9.9 8.3 16 20.7 16 32.7s-6.1 24.4-16 32.7L276.5 440.6c-9.6 8-22.9 9.7-34.1 4.4S224 428.4 224 416V297.7L52.5 440.6c-9.6 8-22.9 9.7-34.1 4.4S0 428.4 0 416V96c0-12.4 7.2-23.7 18.4-29z"/></svg>
+        </button>
+      </div>
+
+      <!-- Launch PiP Action Button -->
+      <button id="btn-focus-ytm" class="btn-launch">
+        <span class="pulse-dot"></span>
+        <span>Luncurkan Game Overlay (Always-on-Top)</span>
+      </button>
+    </div>
+
+    <!-- Hotkeys Section -->
+    <div class="hotkeys-box">
+      <div class="hotkeys-title">⚡ Shortcut Global (Dalam Game)</div>
+      <div class="hotkey-row"><span>Play/Pause</span><kbd>Alt+Shift+P</kbd></div>
+      <div class="hotkey-row"><span>Lagu Berikutnya</span><kbd>Alt+Shift+→</kbd></div>
+      <div class="hotkey-row"><span>Lagu Sebelumnya</span><kbd>Alt+Shift+←</kbd></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
